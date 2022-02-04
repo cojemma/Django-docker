@@ -20,7 +20,7 @@
     {% for post in posts %}
     <div class="post">
         <a href="/post/?id={{post.id}}">
-        <p style="display:inline">{{post.title}}</p></a>
+        <h3 style="display:inline">{{post.title}}</h3></a>
     </div>
         <form method="post" style="display:inline">
             {% csrf_token %}

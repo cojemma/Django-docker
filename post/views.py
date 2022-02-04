@@ -10,7 +10,7 @@ def home(request):
     user = check_login(request)
     if request.method == 'POST':
         if not user:
-            messages.warning(request, '清先登入')
+            messages.warning(request, '請先登入')
             return redirect('/')
         post_id = request.POST.get('post_id')
         post = Post.objects.get(id=post_id)
@@ -26,7 +26,7 @@ def home(request):
 def addPost(request):
     user = check_login(request)
     if not user:
-        messages.warning(request, '清先登入')
+        messages.warning(request, '請先登入')
         return redirect('/')
     if request.method == 'POST':
         post_title = request.POST.get('title')
