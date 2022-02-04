@@ -37,7 +37,7 @@ def addPost(request):
 def editPost(request):
     user = check_login(request)
     if not user:
-        messages.warning(request, '清先登入')
+        messages.warning(request, '請先登入')
         return redirect('/')
     post = Post.objects.get(id=request.GET.get('id'))
     if request.method == 'POST':
