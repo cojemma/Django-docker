@@ -79,6 +79,9 @@ def register(request):
     if request.method == 'POST':
         username_regist = request.POST.get('username')
         password_regist = request.POST.get('password')
+        if len(password_regist) < 6:
+            messages.warning(request, '密碼過短')
+            return render(request, 'register.html')
         user = User.objects.create(username=username_regist, password=password_regist)
         messages.info(request, '註冊成功')
         return redirect('/')
