@@ -6,3 +6,5 @@ $ docker-compose up
 
 本地網站瀏覽位於：
 http://localhost:8000
+
+新增、編輯、及刪除文章等操作需要先行登入
