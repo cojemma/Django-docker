@@ -4,6 +4,8 @@ from .utils import Jwt
 from django.contrib import messages
 
 # Create your views here.
+
+
 def home(request):
     user = check_login(request)
     if request.method == 'POST':
@@ -13,13 +15,13 @@ def home(request):
         post_id = request.POST.get('post_id')
         post = Post.objects.get(id=post_id)
         post.delete()
-    elif request.GET.get('search_title') != None:
+    elif request.GET.get('search_title'):
         search_title = request.GET.get('search_title')
         posts = Post.objects.filter(title__contains=search_title)
     else:
         posts = Post.objects.all()
-        [post for post in posts]
     return render(request, 'home.html', locals())
+
 
 def addPost(request):
     user = check_login(request)
@@ -30,9 +32,10 @@ def addPost(request):
         post_title = request.POST.get('title')
         post_text = request.POST.get('text')
         if post_title:
-            post = Post.objects.create(title = post_title, text=post_text, post_user=user)
+            post = Post.objects.create(title=post_title, text=post_text, post_user=user)
             return redirect('/')
     return render(request, 'addpost.html')
+
 
 def editPost(request):
     user = check_login(request)
@@ -47,11 +50,12 @@ def editPost(request):
         return redirect('/')
     return render(request, 'editpost.html', locals())
 
+
 def login(request):
     if request.method == 'POST':
-        username_e = request.POST.get('username')
-        password_e = request.POST.get('password')
-        user = User.objects.filter(username=username_e, password=password_e)
+        username_login = request.POST.get('username')
+        password_login = request.POST.get('password')
+        user = User.objects.filter(username=username_login, password=password_login)
         if user:
             user = user[0]
             toke = Jwt().encode({'username': user.username})
@@ -62,18 +66,21 @@ def login(request):
             return redirect('/')
     return render(request, 'login.html')
 
+
 def check_login(request):
     toke = request.session.get('token', None)
     data = Jwt(toke).decode()
     if data:
-        user = User.objects.get(username=data.get('username'))
+        user = data['username']
         return user
     else:
         return False
 
+
 def logout(request):
     request.session.flush()
     return redirect('/')
+
 
 def register(request):
     if request.method == 'POST':
@@ -86,3 +93,11 @@ def register(request):
         messages.info(request, '註冊成功')
         return redirect('/')
     return render(request, 'register.html')
+
+def post(request):
+    user = check_login(request)
+    if request.GET.get('id'):
+        post = Post.objects.get(id=request.GET.get('id'))
+        return render(request, 'post.html', locals())
+    else:
+        return redirect('/')

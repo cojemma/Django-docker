@@ -19,7 +19,8 @@
 <div class="container" style="margin: 5px;">
     {% for post in posts %}
     <div class="post">
-        <p style="display:inline">{{post.title}}</p>
+        <a href="/post/?id={{post.id}}">
+        <p style="display:inline">{{post.title}}</p></a>
     </div>
         <form method="post" style="display:inline">
             {% csrf_token %}
