@@ -11,10 +11,10 @@
     <form action="/add/" method="post">
     {% csrf_token %}
         <p>標題:</p>
-        <input type="text" name="title">
+        <input type="text" name="title" style="width: 10%; height: 15px">
     <br>
         <p>內文:</p>
-        <input type="text" name="text">
+        <input type="text" name="text" style="width: 20%; height: auto;">
     <input type="submit" value="完成">
     </form>
 </body>

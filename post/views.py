@@ -15,6 +15,7 @@ def home(request):
         post_id = request.POST.get('post_id')
         post = Post.objects.get(id=post_id)
         post.delete()
+        return redirect('/')
     elif request.GET.get('search_title'):
         search_title = request.GET.get('search_title')
         posts = Post.objects.filter(title__contains=search_title)
@@ -32,7 +33,7 @@ def addPost(request):
         post_title = request.POST.get('title')
         post_text = request.POST.get('text')
         if post_title:
-            post = Post.objects.create(title=post_title, text=post_text, post_user=user)
+            post = Post.objects.create(title=post_title, text=post_text)
             return redirect('/')
     return render(request, 'addpost.html')
 
