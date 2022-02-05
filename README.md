@@ -9,7 +9,7 @@ http://localhost:8000
 
 新增、編輯、及刪除文章等操作需要先行登入
 
-已註冊一名user:
+已註冊一名user
 
 username:cojemma
 
